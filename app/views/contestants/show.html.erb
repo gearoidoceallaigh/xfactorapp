@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @contestant.name %>
+</p>
+
+<p>
+  <b>Search Terms:</b>
+  <% @contestant.search_terms.each do |s| %>
+	<%= s.value %> - <%= link_to 'Del', s,
+	               :confirm => 'Are you sure?',
+	               :method => :delete %><br/>
+  <%end%>
+</p>
+
+<%= form_for([@contestant, @contestant.search_terms.build]) do |f| %>
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Edit', edit_contestant_path(@contestant) %> |
+<%= link_to 'Back', contestants_path %>
