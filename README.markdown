@@ -1,0 +1,1 @@
+# Ruby on rails app to show real time ratings of X Factor contestants
