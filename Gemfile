@@ -12,6 +12,7 @@ gem 'jquery-rails'
 gem 'rake', '0.9.2'
 gem 'dancroak-twitter-search'
 gem "delayed_job"
+gem "admin_data"
 
 group :development do
 	gem 'rspec-rails'
@@ -30,7 +31,7 @@ end
 # gem 'capistrano'
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-# gem 'ruby-debug'
+gem 'ruby-debug'
 # gem 'ruby-debug19'
 
 # Bundle the extra gems:

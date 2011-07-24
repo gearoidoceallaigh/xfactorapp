@@ -30,6 +30,8 @@ XFactorPredictor::Application.routes.draw do
   match "schedule_job" => "application#schedule_job"
   
   match "debug" => "application#debug"
+  
+  match "get_leaders" => "application#get_leaders"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
