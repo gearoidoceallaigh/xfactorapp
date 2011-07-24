@@ -39,4 +39,8 @@ class ApplicationController < ActionController::Base
       render :json => "Voting closed"
     end
   end
+  
+  def let_me_pass
+    return true
+  end
 end
