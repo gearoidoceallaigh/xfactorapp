@@ -6,11 +6,9 @@
 </p>
 
 <p>
-  <b>Search Terms:</b>
+  <b>Search Termss:</b>
   <% @contestant.search_terms.each do |s| %>
-	<%= s.value %> - <%= link_to 'Del', s,
-	               :confirm => 'Are you sure?',
-	               :method => :delete %><br/>
+	<%= s.value %>(<%= s.id %>) - <%= link_to 'delete', contestant_search_term_path(@contestant, s),:method => :delete, :confirm => "you sure?", :remote => true%><br/>
   <%end%>
 </p>
 

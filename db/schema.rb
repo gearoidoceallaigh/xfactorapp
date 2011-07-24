@@ -10,13 +10,37 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110605190134) do
+ActiveRecord::Schema.define(:version => 20110716103146) do
 
   create_table "contestants", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "eliminated",   :default => false
+    t.integer  "latest_score"
   end
+
+  create_table "contests", :force => true do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "keywords", :force => true do |t|
     t.string   "word"
@@ -30,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20110605190134) do
     t.integer  "contestant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "contest_id"
   end
 
   create_table "search_terms", :force => true do |t|

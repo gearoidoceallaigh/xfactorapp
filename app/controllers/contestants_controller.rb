@@ -3,7 +3,7 @@ class ContestantsController < ApplicationController
   # GET /contestants.xml
   def index
     @contestants = Contestant.all
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @contestants }
@@ -44,8 +44,16 @@ class ContestantsController < ApplicationController
 
     respond_to do |format|
       if @contestant.save
-        format.html { redirect_to(@contestant, :notice => 'Contestant was successfully created.') }
-        format.xml  { render :xml => @contestant, :status => :created, :location => @contestant }
+        term  = SearchTerm.new
+        term.contestant = @contestant
+        term.value = @contestant.name
+        if term.save
+          format.html { redirect_to(@contestant, :notice => 'Contestant was successfully created.') }
+          format.xml  { render :xml => @contestant, :status => :created, :location => @contestant }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @contestant.errors, :status => :unprocessable_entity }
+        end
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @contestant.errors, :status => :unprocessable_entity }

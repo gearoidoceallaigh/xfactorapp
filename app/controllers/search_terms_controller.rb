@@ -6,13 +6,16 @@ class SearchTermsController < ApplicationController
   end
   
   def destroy
-    debugger
+    logger.info("DELETING USING THIS METHOD")
     @search_term = SearchTerm.find(params[:id])
     @search_term.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(contestants_url) }
-      format.xml  { head :ok }
-    end
+    logger.info("RETURNING NOW REGULARLY")
+    @contestant = Contestant.find(params[:contestant_id])
+    redirect_to contestant_path(@contestant)    
+  end
+  
+  def show
+    puts 'blah'
   end
 end

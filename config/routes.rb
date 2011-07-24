@@ -1,4 +1,18 @@
 XFactorPredictor::Application.routes.draw do
+  get "contest/index"
+
+  get "contest/new"
+
+  get "contest/show"
+
+  get "contest/create"
+
+  get "contest/edit"
+
+  get "contest/update"
+
+  get "contest/destroy"
+
   resources :keywords
 
   resources :scores
@@ -7,9 +21,15 @@ XFactorPredictor::Application.routes.draw do
     resources :search_terms
   end
   
-  resources :search_terms
+  match "get_scores/:id" => "scores#generate_scores"
 
   get "home/index"
+  
+  resources :contests
+  
+  match "schedule_job" => "application#schedule_job"
+  
+  match "debug" => "application#debug"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
