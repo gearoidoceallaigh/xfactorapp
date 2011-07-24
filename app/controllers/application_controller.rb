@@ -1,6 +1,22 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  include ContestsHelper
+  
+  def schedule_job_for_12_hours
+    require 'search_job'
+    logger.info("Trying to schedule search jobs for 12 hours")
+   
+    i = 1
+    while i < 145 do
+       mins = i * 5
+       Delayed::Job.enqueue SearchJob.new('me'), 0, 5.minutes.from_now.getutc
+       i += 1
+    end
+    
+    render 'home/index'
+  end
+  
   def debug
     debugger
   end
