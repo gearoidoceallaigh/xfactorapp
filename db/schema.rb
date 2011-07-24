@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110716103146) do
+ActiveRecord::Schema.define(:version => 20110724181210) do
 
   create_table "contestants", :force => true do |t|
     t.string   "name"
@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(:version => 20110716103146) do
   end
 
   create_table "contests", :force => true do |t|
-    t.datetime "start"
-    t.datetime "end"
+    t.datetime "contest_start"
+    t.datetime "contest_end"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

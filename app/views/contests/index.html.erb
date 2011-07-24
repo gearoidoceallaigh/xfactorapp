@@ -11,8 +11,8 @@
 
 <% @contests.each do |contest| %>
   <tr>
-    <td><%= contest.start %></td>
-    <td><%= contest.end %></td>
+    <td><%= contest.contest_start %></td>
+    <td><%= contest.contest_end %></td>
     <td><%= link_to 'Show', contest %></td>
     <td><%= link_to 'Edit', edit_contest_path(contest) %></td>
     <td><%= link_to 'Destroy', contest, :confirm => 'Are you sure?', :method => :delete %></td>

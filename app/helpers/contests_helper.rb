@@ -6,7 +6,7 @@ module ContestsHelper
     Rails.logger.info("Checking to see if contest is running")
     Rails.logger.info("Current time is: " + Time.now.to_s)
     
-    contest = Contest.find(:first, :conditions => ["start <= ? AND end >= ?", Time.now, Time.now])
+    contest = Contest.find(:first, :conditions => ["contest_start <= ? AND contest_end >= ?", Time.now, Time.now])
     
     unless contest.nil?
       Rails.logger.info("Contest with id " + contest.id.to_s + " found, returning.")
