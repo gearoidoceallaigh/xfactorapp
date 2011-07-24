@@ -27,8 +27,6 @@ XFactorPredictor::Application.routes.draw do
   
   resources :contests
   
-  match "schedule_job" => "application#schedule_job"
-  
   match "debug" => "application#debug"
   
   match "get_leaders" => "application#get_leaders"

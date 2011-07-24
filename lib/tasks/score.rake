@@ -1,18 +1,13 @@
 desc "This task is called by the Heroku cron add-on"
 
 task :cron => :environment do
-  now = Time.now.to_i
-  
-  contests = Contests.all
-  
-  contests.each do |contest|
-    start_time = contest.start_time.to_i
-    end_time = contest.end_time.to_i
-    
-    if ((now >= start_time) && (now <= end_time))
-      return true;
-    end
-    
-    return false;
+  require 'search_job'
+  logger.info("Trying to schedule search job")
+ 
+  i = 1
+  while i < 289 do
+     mins = i * 5
+     Delayed::Job.enqueue SearchJob.new('me'), 0, 5.minutes.from_now.getutc
+     i += 1
   end
 end
