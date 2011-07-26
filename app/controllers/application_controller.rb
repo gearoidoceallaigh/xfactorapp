@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   
   def get_leaders
     logger.info("Leaderboard request made")
-    
+    rankings = Contestant.all
     contest = is_contest_running
     unless contest.nil?
       rankings = Contestant.select("name").where("eliminated = ?", false).order("latest_score DESC")
@@ -35,10 +35,16 @@ class ApplicationController < ActionController::Base
         end
         
       else
-        render :json => "An error occured"
+        respond_to do |format|
+          errors = {"error" => "An error occured, please try again later"}
+          format.js  { render :json => errors, :callback => params[:callback] }
+        end
       end
     else
-      render :json => "Voting closed"
+      respond_to do |format|
+        errors = {"error" => "Voting is closed. Rankings will be available when voting re-opens!"}
+        format.js  { render :json => errors, :callback => params[:callback] }
+      end
     end
   end
 
