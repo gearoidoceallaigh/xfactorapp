@@ -31,7 +31,7 @@ XFactorPredictor::Application.routes.draw do
   
   match "debug" => "application#debug"
   
-  match "get_leaders" => "application#get_leaders"
+  match "get_leaders" => "webservice#get_leaders"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
