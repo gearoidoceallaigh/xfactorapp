@@ -1,7 +1,11 @@
 class ApplicationController < ActionController::Base
+  
   protect_from_forgery
   
   include ContestsHelper
+  
+  ADMIN_USER_NAME, ADMIN_PASSWORD = "ger", "5trang3day5"
+  before_filter :authenticate
   
   def schedule_job_for_12_hours
     require 'search_job'
@@ -15,10 +19,6 @@ class ApplicationController < ActionController::Base
     end
     
     render 'home/index'
-  end
-  
-  def debug
-    debugger
   end
   
   def get_leaders
@@ -47,5 +47,20 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  
+  def logged_in?
+    logger.info("CALL 1")
+  end
+  
+  def admin_logged_in?
+    logger.info("CALL 2")
+  end
+  
+  def authenticate
+    authenticate_or_request_with_http_basic do |user_name, password|
+      user_name == ADMIN_USER_NAME && password == ADMIN_PASSWORD
+    end
+  end
+    
 
 end
