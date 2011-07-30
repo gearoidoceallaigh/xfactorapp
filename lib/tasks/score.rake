@@ -2,7 +2,7 @@ desc "This task is called by the Heroku cron add-on"
 
 task :cron => :environment do
   require 'search_job'
-  logger.info("Trying to schedule search job")
+  puts "Trying to schedule search job"
  
   i = 1
   while i < 289 do
