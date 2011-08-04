@@ -62,6 +62,12 @@ class SearchJob < Struct.new(:url)
       if contestant.nil?
         Rails.logger.debug("Couldn't locate contesant")
       end
+    else
+      reset_score_for_contest(contestant)
     end
+    
+    
+    
   end
+  
 end

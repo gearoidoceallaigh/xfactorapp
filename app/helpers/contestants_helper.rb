@@ -13,6 +13,14 @@ module ContestantsHelper
     end
     contestant.save
     Rails.logger.info("Saving")
+  end
+  
+  def reset_score_for_contest(contestant)
+    
+    Rails.logger.info("Resetting score for " + contestant.name)
+    contestant.latest_score = 0
+    contestant.save
+    Rails.logger.info("Saving")
     
   end
   
