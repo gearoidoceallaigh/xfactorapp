@@ -28,14 +28,14 @@ class WebserviceController < ActionController::Base
         end
       else
         respond_to do |format|
-          errors = {"error" => "Due to creative redirection (and legal obligation) X Factor Predictor is now know as 
+          errors = {"error" => "Due to creative redirection (and legal obligation) X Factor Predictor is now known as 
             F Xactor! It will be available shortly in the App Store and won't cost you anything to update."}
           format.js  { render :json => errors, :callback => params[:callback] }
         end
       end
     else
        respond_to do |format|
-          errors = {"error" => "Due to creative redirection (and legal obligation) X Factor Predictor is now know as 
+          errors = {"error" => "Due to creative redirection (and legal obligation) X Factor Predictor is now known as 
             F Xactor! It will be available shortly in the App Store and won't cost you anything to update."}
           format.js  { render :json => errors, :callback => params[:callback] }
         end
