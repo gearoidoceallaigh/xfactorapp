@@ -1,4 +1,6 @@
 XFactorPredictor::Application.routes.draw do
+  resources :metrics
+
   get "contest/index"
 
   get "contest/new"
@@ -34,6 +36,8 @@ XFactorPredictor::Application.routes.draw do
   match "get_leaders" => "webservice#get_leaders"
   
   match "get_leaders_legally" => "webservice#get_leaders_legally"
+  
+  match 'get_leaders_test' => "webservice#get_leaders_test"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
