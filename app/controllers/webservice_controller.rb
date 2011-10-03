@@ -7,6 +7,7 @@ class WebserviceController < ActionController::Base
   include ContestsHelper
   
   def get_leaders
+    
     if (LIVE_SHOWS_COMMENCED)
       logger.info("Leaderboard request made")
       rankings = Contestant.all
@@ -77,34 +78,37 @@ class WebserviceController < ActionController::Base
   end
   
   def get_leaders_test
-    logger.info("Leaderboard request made")
-    rankings = Contestant.all
-    contest = is_contest_running
-    unless contest.nil?
-      rankings = Contestant.select("name").where("eliminated = ?", false).order("latest_score DESC")
-      unless rankings.nil?
       
-        respond_to do |format|
-          format.js  { render :json => rankings, :callback => params[:callback] }
-          format.json  { render :json => rankings }
+      ip_addr = request.remote_ip
+    
+      logger.info("Leaderboard request made from " + ip_addr.to_s)
+      
+      metric = Metric.new
+      metric.ip_address = ip_addr.to_s
+      metric.save
+    
+      rankings = Contestant.all
+      contest = is_contest_running
+      unless contest.nil?
+        rankings = Contestant.select("name").where("eliminated = ?", false).order("latest_score DESC")
+        unless rankings.nil?
+      
+          respond_to do |format|
+            format.js  { render :json => rankings, :callback => params[:callback] }
+            format.json  { render :json => rankings }
+          end
+      
+        else
+          respond_to do |format|
+            errors = {"error" => "An error occured, please try again later"}
+            format.js  { render :json => errors, :callback => params[:callback] }
+          end
         end
-      
       else
         respond_to do |format|
-          errors = {"error" => "An error occured, please try again later"}
+          errors = {"error" => "Voting is closed. Rankings will be available when voting re-opens!"}
           format.js  { render :json => errors, :callback => params[:callback] }
         end
-      end
-    else
-      respond_to do |format|
-        errors = {"error" => "Voting is closed. Rankings will be available when voting re-opens!"}
-        format.js  { render :json => errors, :callback => params[:callback] }
-      end
-    end
-  else
-     respond_to do |format|
-        errors = {"error" => "The show's finalists have not been decided yet. Rankings will appear when the live shows begin!"}
-        format.js  { render :json => errors, :callback => params[:callback] }
       end
   end
   
