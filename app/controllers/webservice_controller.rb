@@ -8,6 +8,12 @@ class WebserviceController < ActionController::Base
   
   def get_leaders
     
+    ip_addr = request.remote_ip
+    logger.info("Leaderboard request made from " + ip_addr.to_s)
+    metric = Metric.new
+    metric.ip_address = ip_addr.to_s
+    metric.save
+    
     if (LIVE_SHOWS_COMMENCED)
       logger.info("Leaderboard request made")
       rankings = Contestant.all
@@ -44,6 +50,13 @@ class WebserviceController < ActionController::Base
   end
   
   def get_leaders_legally
+    
+    ip_addr = request.remote_ip
+    logger.info("Leaderboard request made from " + ip_addr.to_s)
+    metric = Metric.new
+    metric.ip_address = ip_addr.to_s
+    metric.save
+    
     if (LIVE_SHOWS_COMMENCED)
       logger.info("Leaderboard request made")
       rankings = Contestant.all
@@ -80,9 +93,7 @@ class WebserviceController < ActionController::Base
   def get_leaders_test
       
       ip_addr = request.remote_ip
-    
       logger.info("Leaderboard request made from " + ip_addr.to_s)
-      
       metric = Metric.new
       metric.ip_address = ip_addr.to_s
       metric.save
