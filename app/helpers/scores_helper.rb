@@ -20,7 +20,7 @@ module ScoresHelper
     score = Score.new
     
     score.contestant = contestant
-    score.value = -1
+    score.value = -1 * contestant.multiplier
     score.contest = contest
     
     score.save
@@ -31,7 +31,7 @@ module ScoresHelper
     score = Score.new
     
     score.contestant = contestant
-    score.value = 1
+    score.value = 1 * contestant.multiplier
     score.contest = contest
     
     score.save

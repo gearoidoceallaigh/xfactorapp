@@ -40,6 +40,7 @@ class ContestantsController < ApplicationController
   # POST /contestants
   # POST /contestants.xml
   def create
+    debugger
     @contestant = Contestant.new(params[:contestant])
 
     respond_to do |format|

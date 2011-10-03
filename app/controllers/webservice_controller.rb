@@ -76,4 +76,36 @@ class WebserviceController < ActionController::Base
     end
   end
   
+  def get_leaders_test
+    logger.info("Leaderboard request made")
+    rankings = Contestant.all
+    contest = is_contest_running
+    unless contest.nil?
+      rankings = Contestant.select("name").where("eliminated = ?", false).order("latest_score DESC")
+      unless rankings.nil?
+      
+        respond_to do |format|
+          format.js  { render :json => rankings, :callback => params[:callback] }
+          format.json  { render :json => rankings }
+        end
+      
+      else
+        respond_to do |format|
+          errors = {"error" => "An error occured, please try again later"}
+          format.js  { render :json => errors, :callback => params[:callback] }
+        end
+      end
+    else
+      respond_to do |format|
+        errors = {"error" => "Voting is closed. Rankings will be available when voting re-opens!"}
+        format.js  { render :json => errors, :callback => params[:callback] }
+      end
+    end
+  else
+     respond_to do |format|
+        errors = {"error" => "The show's finalists have not been decided yet. Rankings will appear when the live shows begin!"}
+        format.js  { render :json => errors, :callback => params[:callback] }
+      end
+  end
+  
 end
