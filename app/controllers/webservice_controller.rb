@@ -2,7 +2,7 @@ class WebserviceController < ActionController::Base
   
   protect_from_forgery
   
-  LIVE_SHOWS_COMMENCED = false
+  LIVE_SHOWS_COMMENCED = true
   
   include ContestsHelper
   
