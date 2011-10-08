@@ -31,6 +31,8 @@ XFactorPredictor::Application.routes.draw do
   
   match "schedule_job" => "application#schedule_job_for_12_hours"
   
+  match "schedule_job_24" => "application#schedule_job_for_24_hours"
+  
   match "debug" => "application#debug"
   
   match "get_leaders" => "webservice#get_leaders"
