@@ -19,9 +19,9 @@ class ApplicationController < ActionController::Base
     render 'home/index'
   end
   
-  def schedule_job_for_12_hours
+  def schedule_job_for_24_hours
     require 'search_job'
-    logger.info("Trying to schedule search jobs for 12 hours")
+    logger.info("Trying to schedule search jobs for 24 hours")
    
     i = 1
     while i < 290 do
