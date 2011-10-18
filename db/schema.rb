@@ -10,15 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111003115722) do
+ActiveRecord::Schema.define(:version => 20111018202217) do
 
   create_table "contestants", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "eliminated",   :default => false
-    t.integer  "latest_score"
     t.integer  "multiplier"
+    t.integer  "latest_score"
   end
 
   create_table "contests", :force => true do |t|
@@ -48,6 +48,13 @@ ActiveRecord::Schema.define(:version => 20111003115722) do
     t.string   "effect"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "metrics", :force => true do |t|
+    t.string   "ip_address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type"
   end
 
   create_table "scores", :force => true do |t|

@@ -40,6 +40,12 @@ XFactorPredictor::Application.routes.draw do
   match "get_leaders_legally" => "webservice#get_leaders_legally"
   
   match 'get_leaders_test' => "webservice#get_leaders_test"
+  
+  match 'news' => "webservice#record_news_retreival"
+  
+  match 'info' => "webservice#record_info_retreival"
+  
+  match 'twitter' => "webservice#record_twitter_retreival"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

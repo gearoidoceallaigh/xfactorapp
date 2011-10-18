@@ -12,6 +12,7 @@ class WebserviceController < ActionController::Base
     logger.info("Leaderboard request made from " + ip_addr.to_s)
     metric = Metric.new
     metric.ip_address = ip_addr.to_s
+    metric.type = "SCORES"
     metric.save
     
     if (LIVE_SHOWS_COMMENCED)
@@ -55,6 +56,7 @@ class WebserviceController < ActionController::Base
     logger.info("Leaderboard request made from " + ip_addr.to_s)
     metric = Metric.new
     metric.ip_address = ip_addr.to_s
+    metric.type = "SCORES"
     metric.save
     
     if (LIVE_SHOWS_COMMENCED)
@@ -96,6 +98,7 @@ class WebserviceController < ActionController::Base
       logger.info("Leaderboard request made from " + ip_addr.to_s)
       metric = Metric.new
       metric.ip_address = ip_addr.to_s
+      metric.type = "SCORES"
       metric.save
     
       rankings = Contestant.all
@@ -121,6 +124,30 @@ class WebserviceController < ActionController::Base
           format.js  { render :json => errors, :callback => params[:callback] }
         end
       end
+  end
+  
+  def record_news_retreival
+    ip_addr = request.remote_ip
+    metric = Metric.new
+    metric.ip_address = ip_addr.to_s
+    metric.type = "NEWS"
+    metric.save
+  end
+  
+  def record_info_retreival
+    ip_addr = request.remote_ip
+    metric = Metric.new
+    metric.ip_address = ip_addr.to_s
+    metric.type = "INFO"
+    metric.save
+  end
+  
+  def record_twitter_retreival
+    ip_addr = request.remote_ip
+    metric = Metric.new
+    metric.ip_address = ip_addr.to_s
+    metric.type = "TWITTER"
+    metric.save
   end
   
 end
