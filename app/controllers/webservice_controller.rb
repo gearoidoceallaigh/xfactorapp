@@ -12,7 +12,7 @@ class WebserviceController < ActionController::Base
     logger.info("Leaderboard request made from " + ip_addr.to_s)
     metric = Metric.new
     metric.ip_address = ip_addr.to_s
-    metric.type = "SCORES"
+    metric.tracking_type = "SCORES"
     metric.save
     
     if (LIVE_SHOWS_COMMENCED)
@@ -56,7 +56,7 @@ class WebserviceController < ActionController::Base
     logger.info("Leaderboard request made from " + ip_addr.to_s)
     metric = Metric.new
     metric.ip_address = ip_addr.to_s
-    metric.type = "SCORES"
+    metric.tracking_type = "SCORES"
     metric.save
     
     if (LIVE_SHOWS_COMMENCED)
@@ -98,7 +98,7 @@ class WebserviceController < ActionController::Base
       logger.info("Leaderboard request made from " + ip_addr.to_s)
       metric = Metric.new
       metric.ip_address = ip_addr.to_s
-      metric.type = "SCORES"
+      metric.tracking_type = "SCORES"
       metric.save
     
       rankings = Contestant.all
@@ -130,7 +130,7 @@ class WebserviceController < ActionController::Base
     ip_addr = request.remote_ip
     metric = Metric.new
     metric.ip_address = ip_addr.to_s
-    metric.type = "NEWS"
+    metric.tracking_type = "NEWS"
     metric.save
   end
   
@@ -138,7 +138,7 @@ class WebserviceController < ActionController::Base
     ip_addr = request.remote_ip
     metric = Metric.new
     metric.ip_address = ip_addr.to_s
-    metric.type = "INFO"
+    metric.tracking_type = "INFO"
     metric.save
   end
   
@@ -146,7 +146,7 @@ class WebserviceController < ActionController::Base
     ip_addr = request.remote_ip
     metric = Metric.new
     metric.ip_address = ip_addr.to_s
-    metric.type = "TWITTER"
+    metric.tracking_type = "TWITTER"
     metric.save
   end
   
