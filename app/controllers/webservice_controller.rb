@@ -132,6 +132,10 @@ class WebserviceController < ActionController::Base
     metric.ip_address = ip_addr.to_s
     metric.tracking_type = "NEWS"
     metric.save
+    respond_to do |format|
+      format.js  { render :json => true, :callback => params[:callback] }
+      format.json  { render :json => true }
+    end
   end
   
   def record_info_retreival
@@ -140,6 +144,10 @@ class WebserviceController < ActionController::Base
     metric.ip_address = ip_addr.to_s
     metric.tracking_type = "INFO"
     metric.save
+    respond_to do |format|
+      format.js  { render :json => true, :callback => params[:callback] }
+      format.json  { render :json => true }
+    end
   end
   
   def record_twitter_retreival
@@ -148,6 +156,10 @@ class WebserviceController < ActionController::Base
     metric.ip_address = ip_addr.to_s
     metric.tracking_type = "TWITTER"
     metric.save
+    respond_to do |format|
+      format.js  { render :json => true, :callback => params[:callback] }
+      format.json  { render :json => true }
+    end
   end
   
 end
