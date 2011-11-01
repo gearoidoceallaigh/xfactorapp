@@ -1,6 +1,6 @@
 scheduler = Rufus::Scheduler.start_new
 
-scheduler.every("5m") do
+scheduler.every("12m") do
    sj = SearchJob.new
    sj.perform
 end
