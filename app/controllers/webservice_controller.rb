@@ -5,6 +5,7 @@ class WebserviceController < ActionController::Base
   LIVE_SHOWS_COMMENCED = true
   
   include ContestsHelper
+  include ContestantsHelper
   
   def get_leaders
     
