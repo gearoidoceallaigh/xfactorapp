@@ -47,7 +47,7 @@ XFactorPredictor::Application.routes.draw do
   
   match 'twitter' => "webservice#record_twitter_retreival"
   
-  match 'clear_scores' => "application#clear_scores"
+  match 'clear_scores' => "webservice#clear_scores"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
