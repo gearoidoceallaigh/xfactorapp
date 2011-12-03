@@ -162,4 +162,15 @@ class WebserviceController < ActionController::Base
     end
   end
   
+  def clear_scores
+    contestants = Contestant.all
+
+    contestants.each do |c|
+      Rails.logger.info("Clearing scores for " + c.name)
+      reset_score_for_contest(c)
+    end
+    
+    render 'home/index'
+  end
+  
 end
