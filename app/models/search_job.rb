@@ -29,48 +29,50 @@ class SearchJob < Struct.new(:url)
     
     contest = is_contest_running
     
-    unless contest.nil?
-    
+    unless contest.nil?    
       require 'time'
       @client = TwitterSearch::Client.new('app4xfactor')
     
-      unless contestant.nil?
+      unless contestant.nil? or contestant.eliminated?
 
-        Rails.logger.info("Getting tweets for: " + contestant.name)
-      
-        contestant.search_terms.each do |s| 
+        Rails.logger.info("Getting tweets for contestant with id: " + contestant.id.to_s + "(" + contestant.name + ")")
+        
+        unless contestant.search_terms.nil?      
+          contestant.search_terms.each do |s|
+            Rails.logger.info("Searching twitter for term: "  + s.value)
 
-          Rails.logger.info("Searching twitter for term: "  + s.value)
-
-          tweets = @client.query :q => s.value, :rpp => '50'
-          five_mins_ago = Time.now.to_i - 6000
-          count = 0
-          new_tweets = []
-          tweets.each do |tweet|
-            tweet_time = Time.parse(tweet.created_at).to_i    
+            tweets = @client.query :q => s.value, :rpp => '50'
+            five_mins_ago = Time.now.to_i - 6000
+            count = 0
+            new_tweets = []
+            tweets.each do |tweet|
+              tweet_time = Time.parse(tweet.created_at).to_i    
                 
-            if (tweet_time > five_mins_ago)
-              if check_for_bad_words(tweet)
-                create_bad_score(contestant, contest)
-              else
-                create_good_score(contestant, contest)
-              end
+              if (tweet_time > five_mins_ago)
+                if check_for_bad_words(tweet)
+                  create_bad_score(contestant, contest)
+                else
+                  create_good_score(contestant, contest)
+                end
               
-              update_latest_score_for_contest(contestant, contest)
+                update_latest_score_for_contest(contestant, contest)
             
-              new_tweets.push(tweet)
+                new_tweets.push(tweet)
             
+              end
             end
-          end
-          Rails.logger.info("number of new tweets:" + new_tweets.size.to_s)
+            Rails.logger.info("number of new tweets:" + new_tweets.size.to_s)
+          end      
+          Rails.logger.info('finished polling twitter for ' + contestant.name);
         end
+      end
       
-        Rails.logger.info('finished polling twitter for ' + contestant.name);
-      end
-    
       if contestant.nil?
-        Rails.logger.debug("Couldn't locate contesant")
+        Rails.logger.info("Couldn't locate contestant")
+      elsif contestant.eliminated?
+        Rails.logger.info("Contestant with id" + contestant.id.to_s + " is eliminated, skipping")
       end
+      
     else
       reset_score_for_contest(contestant)
     end
