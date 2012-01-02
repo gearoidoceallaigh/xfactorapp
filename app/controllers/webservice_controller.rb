@@ -8,6 +8,7 @@ class WebserviceController < ActionController::Base
   include ContestantsHelper
   
   def get_leaders
+    
     ip_addr = request.remote_ip
     logger.info("Leaderboard request made from " + ip_addr.to_s)
     metric = Metric.new
@@ -93,7 +94,7 @@ class WebserviceController < ActionController::Base
   end
   
   def get_leaders_test
-      =begin
+      
       ip_addr = request.remote_ip
       logger.info("Leaderboard request made from " + ip_addr.to_s)
       metric = Metric.new
@@ -124,13 +125,6 @@ class WebserviceController < ActionController::Base
           format.js  { render :json => errors, :callback => params[:callback] }
         end
       end
-      =end
-      
-      respond_to do |format|
-        errors = {"error" => "X Factor is over for 2011. See you in 2012 buddy!"}
-        format.js  { render :json => errors, :callback => params[:callback] }
-      end
-      
   end
   
   def record_news_retreival
