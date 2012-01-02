@@ -95,35 +95,40 @@ class WebserviceController < ActionController::Base
   
   def get_leaders_test
       
-      ip_addr = request.remote_ip
-      logger.info("Leaderboard request made from " + ip_addr.to_s)
-      metric = Metric.new
-      metric.ip_address = ip_addr.to_s
-      metric.tracking_type = "SCORES"
-      metric.save
-    
-      rankings = Contestant.all
-      contest = is_contest_running
-      unless contest.nil?
-        rankings = Contestant.select("name").where("eliminated = ?", false).order("latest_score DESC")
-        unless rankings.nil?
+      # ip_addr = request.remote_ip
+      #       logger.info("Leaderboard request made from " + ip_addr.to_s)
+      #       metric = Metric.new
+      #       metric.ip_address = ip_addr.to_s
+      #       metric.tracking_type = "SCORES"
+      #       metric.save
+      #     
+      #       rankings = Contestant.all
+      #       contest = is_contest_running
+      #       unless contest.nil?
+      #         rankings = Contestant.select("name").where("eliminated = ?", false).order("latest_score DESC")
+      #         unless rankings.nil?
+      #       
+      #           respond_to do |format|
+      #             format.js  { render :json => rankings, :callback => params[:callback] }
+      #             format.json  { render :json => rankings }
+      #           end
+      #       
+      #         else
+      #           respond_to do |format|
+      #             errors = {"error" => "An error occured, please try again later"}
+      #             format.js  { render :json => errors, :callback => params[:callback] }
+      #           end
+      #         end
+      #       else
+      #         respond_to do |format|
+      #           errors = {"error" => "Voting is closed. Rankings will be available when voting re-opens!"}
+      #           format.js  { render :json => errors, :callback => params[:callback] }
+      #         end
+      #       end
       
-          respond_to do |format|
-            format.js  { render :json => rankings, :callback => params[:callback] }
-            format.json  { render :json => rankings }
-          end
-      
-        else
-          respond_to do |format|
-            errors = {"error" => "An error occured, please try again later"}
-            format.js  { render :json => errors, :callback => params[:callback] }
-          end
-        end
-      else
-        respond_to do |format|
-          errors = {"error" => "Voting is closed. Rankings will be available when voting re-opens!"}
-          format.js  { render :json => errors, :callback => params[:callback] }
-        end
+      respond_to do |format|
+        errors = {"error" => "X Factor is over for 2011. See you in 2012 buddy!"}
+        format.js  { render :json => errors, :callback => params[:callback] }
       end
   end
   
